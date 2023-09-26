@@ -10,6 +10,8 @@ import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
+//Nome da Dupla: Anilmar Choque e Rafael Menezes
+
 @RestController
 @RequestMapping("/viagens")
 public class viagemController {
@@ -18,8 +20,16 @@ public class viagemController {
     private ViagemRepository repository;
 
     @GetMapping
-    public List<Viagem> buscarTodos() {
-        return repository.findAll();
+    public List<Viagem> buscarTodos(@RequestParam(required = false) String destino)
+    {
+        if(destino == null)
+        {
+            return repository.findAll();
+        }
+        else
+        {
+            return repository.findByDestino(destino);
+        }
     }
 
     @GetMapping("/{Id}")
